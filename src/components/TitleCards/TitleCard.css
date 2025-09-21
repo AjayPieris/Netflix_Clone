@@ -1,0 +1,59 @@
+.card-list {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  flex-wrap: nowrap;     /* force one row */
+  gap: 10px;
+  overflow-x: auto;      /* horizontal scroll */
+  overflow-y: hidden;    /* hide vertical scroll */
+  white-space: nowrap;   /* prevent items from breaking line */
+}
+
+.card-list .card {
+  flex: 0 0 auto;        /* prevent shrinking, keep fixed width */
+  width: 240px;          /* same as img width */
+  position: relative;
+  overflow: hidden;
+}
+
+.card-list img {
+  width: 100%;           
+  border-radius: 4px;
+  cursor: pointer;
+}
+.card-list {
+  display: flex;
+  flex-wrap: nowrap;    
+  gap: 10px;
+  overflow-x: auto;      
+  overflow-y: hidden;    
+  white-space: nowrap;   
+}
+
+.card-list .card {
+  flex: 0 0 auto;        
+  width: 240px;          
+  position: relative;
+  overflow: hidden;
+}
+
+.card-list img {
+  width: 100%;           
+  border-radius: 4px;
+  cursor: pointer;
+}
+.card-list .card p {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  font-weight: bold;
+  background: rgba(0,0,0,0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.card-list::-webkit-scrollbar {
+  display: none;         
+}
+
