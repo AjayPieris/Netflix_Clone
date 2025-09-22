@@ -1,34 +1,48 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './TitleCard.css'
-import cards_data from '../../assets/cards/Cards_data'
 
-function TitleCard({title, category}) {
+function TitleCard({ title, category }) {
+  const [apiData, setApiData] = useState([]);
+  const cardsRef = useRef(); // reference to card-list container
 
-  const cardsRef = useRef(); // reference to card list box
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer YOUR_API_KEY'
+    }
+  };
 
-const handleWheel = (event) => {
-  event.preventDefault(); // stop normal up/down scroll
-  cardsRef.current.scrollLeft += event.deltaY; // scroll left/right instead
-}
+  const handleWheel = (event) => {
+    event.preventDefault();
+    cardsRef.current.scrollLeft += event.deltaY; // scroll container horizontally
+  };
 
-useEffect(() => {
-  cardsRef.current.addEventListener('wheel', handleWheel); // run handleWheel when wheel moves
-}, []); // run only once
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1', options)
+      .then(res => res.json())
+      .then(res => setApiData(res.results || []))
+      .catch(err => console.error(err));
+
+    const container = cardsRef.current;
+    container.addEventListener('wheel', handleWheel);
+
+    return () => container.removeEventListener('wheel', handleWheel); // cleanup
+  }, []);
 
   return (
     <div className='title-card'>
-      <h2>{title?title:"Popular on Netflix"}</h2>
-      <div className='card-list'>
-        {cards_data.map((card, index)=>{
-          return <div className='card' key={index} ref={cardsRef}>
-            <img src={card.image} alt=''/>
-            <p>{card.name}</p>
+      <h2>{title ? title : "Popular on Netflix"}</h2>
+      <div className='card-list' ref={cardsRef}>
+        {apiData.map((card, index) => (
+          <div className='card' key={index}>
+            <img src={`https://image.tmdb.org/t/p/w500`+card.backdrop_path} alt='' />
+            <p>{card.original_title}</p>
           </div>
-        })}
+        ))}
       </div>
     </div>
   )
 }
 
 export default TitleCard;
-
