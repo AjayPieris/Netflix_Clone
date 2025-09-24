@@ -9,19 +9,17 @@ import { auth } from "./firebase"; // ✅ import auth
 const App = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log("Logged In");
-        navigate("/");
-      } else {
+   useEffect(()=>{
+    onAuthStateChanged(auth, async(user)=>{
+      if(user){
+        console.log("Logged In")
+        navigate('/')
+      }else{
         console.log("Logged Out");
-        navigate("/login");
+        navigate('/login')
       }
-    });
-    // cleanup subscription when App unmounts
-    return () => unsubscribe();
-  }, [navigate]);
+    })
+   },[])
 
   return (
     <div>
