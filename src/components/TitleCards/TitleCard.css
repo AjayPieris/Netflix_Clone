@@ -21,27 +21,7 @@
   border-radius: 4px;
   cursor: pointer;
 }
-.card-list {
-  display: flex;
-  flex-wrap: nowrap;    
-  gap: 10px;
-  overflow-x: auto;      
-  overflow-y: hidden;    
-  white-space: nowrap;   
-}
 
-.card-list .card {
-  flex: 0 0 auto;        
-  width: 240px;          
-  position: relative;
-  overflow: hidden;
-}
-
-.card-list img {
-  width: 100%;           
-  border-radius: 4px;
-  cursor: pointer;
-}
 .card-list .card p {
   position: absolute;
   bottom: 10px;
@@ -57,3 +37,52 @@
   display: none;         
 }
 
+/* ✅ TitleCard styling fix */
+.title-card {
+  margin-bottom: 30px;
+}
+
+.title-card h2 {
+  margin-bottom: 10px;
+  display: block;
+  max-width: 100%;
+  white-space: nowrap;      /* keep text in one line */
+  overflow: hidden;         /* cut overflow */
+  text-overflow: ellipsis;  /* show "..." if too long */
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+
+@media (max-width: 800px) {
+  .title-card {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+
+  .title-card h2 {
+    font-size: 18px;        /* smaller but readable */
+  }
+
+  .card-list .card {
+    width: 200px;
+  }
+
+  .card-list .card p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 500px) {
+  .title-card h2 {
+    font-size: 14px;        /* prevent breaking frame */
+  }
+
+  .card-list .card {
+    width: 165px;
+  }
+
+  .card-list .card p {
+    font-size: 10px;
+  }
+}
